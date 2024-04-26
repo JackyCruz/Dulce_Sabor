@@ -1,0 +1,133 @@
+﻿@model List<Dulce_Sabor.Models.platos>
+
+@*Encabezado: Titulo de la pagina*@
+
+<center><h1>Módulo de Cocinero</h1></center>
+<div class="row mb-4">
+    <link rel="stylesheet" href="~/css/site.css">
+    <div class="col-md-6 offset-md-3">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="~/imagenes/chef.jpg" alt="logo de mi app" width="80" height="80" />
+            </div>
+            <div class="col-md-9  text-center text-black" style="background-color: palegoldenrod">
+                <h2>Master Chef</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Inicio del formulario*@
+@*Estilo para la pagina*@
+<style>
+  
+    .custom-table {
+        border: 4px solid black;
+    }
+
+    .progress-bar-container {
+        width: 96%;
+        height: 20px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+ 
+    .progress-bar-fill {
+        height: 100%;
+        background-color: palegoldenrod;
+        width: 33.33%; /* Inicialmente llena un tercio */
+        float: left;
+    }
+
+    .progress-bar-status {
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    body {
+        background-image: url('comidix.jpg');
+        /* Ajusta la ruta a la ubicación y nombre de tu imagen */
+        background-size: cover; /* Para que la imagen se ajuste al tamaño de la ventana del navegador */
+        /* Otros estilos opcionales */
+        background-repeat: no-repeat; /* Para evitar que la imagen se repita */
+    }
+</style>
+
+@*Inicio del formulario*@
+@using (Html.BeginForm("ActualizarEstado", "DulceSabor", FormMethod.Post))
+{
+    // Dividir el modelo en grupos de tres mesas
+    var groups = Model.Select((item, index) => new { Item = item, Index = index })
+                      .GroupBy(x => x.Index / 3)
+                      .Select(g => g.Select(x => x.Item).ToList())
+                      .ToList();
+
+    foreach (var group in groups)
+    {
+        <div class="row">
+            @foreach (var mesa in group)
+            {
+                <div class="col-sm-4 mb-4">
+                    <div style="margin: 10px 0;background-color: papayawhip; text-white">
+                        <!-- Cambio de color a café -->
+                        <h1 style="margin: 10px 0;background-color: palegoldenrod">Mesa @(Model.IndexOf(mesa) + 1)</h1> <!-- Agregado margen -->
+                        <div style="margin: 10px; background-color: papayawhip;">
+                            <label>@mesa.nombre_plato</label>
+                        </div>
+
+                        <!-- Barra de progreso y estado -->
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+
+                        <!-- Texto del estado -->
+                        <div class="text-center mt-2">
+                            <span id="estado@(Model.IndexOf(mesa))">Solicitado</span>
+                        </div>
+
+                        <!-- Botón para cambiar el estado -->
+                        <button type="button" style="background-color: palegoldenrod" onclick="cambiarEstado(@Model.IndexOf(mesa))">Cambiar Estado</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+
+@section Scripts {
+    <script>
+        // Array para almacenar los estados de cada mesa
+        var estados = @Json.Serialize(Model.Select(p => "Solicitado").ToList());
+
+        // Función para cambiar el estado de una mesa específica
+        function cambiarEstado(index) {
+            var progressBarFill = document.querySelectorAll(".progress-bar-fill")[index];
+            var estadoText = document.querySelectorAll("#estado" + index)[0];
+            var boton = document.querySelectorAll("button")[index];
+
+            // Si el estado es "Finalizado", no hacer nada
+            if (estados[index] === "Finalizado") {
+                return;
+            }
+
+            // Incrementar el estado y actualizar la barra de progreso y el texto de estado
+            var width = (estados[index] === "Solicitado") ? "66.66%" : "100%";
+            progressBarFill.style.width = width ;
+            estadoText.innerText = (estados[index] === "Solicitado") ? "Procesando" : "Finalizado";
+            estados[index] = (estados[index] === "Solicitado") ? "Procesando" : "Finalizado";
+
+            // Si el estado es "Finalizado", bloquear el botón
+            if (estados[index] === "Finalizado") {
+                boton.disabled = false;
+            }
+        }
+    </script>
+}
+
+
+
+
+
+
