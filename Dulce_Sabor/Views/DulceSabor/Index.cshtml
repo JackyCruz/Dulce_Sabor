@@ -1,21 +1,23 @@
 ﻿@model List<Dulce_Sabor.Models.platos>
 
 @*Encabezado: Titulo de la pagina*@
+<link rel="stylesheet" href="~/css/site.css">
+<div class="text-black" style="background-color: peachpuff">
+    <center><h1>Módulo de Cocinero</h1></center>
+</div>
 
-<center><h1>Módulo de Cocinero</h1></center>
-<div class="row mb-4">
-    <link rel="stylesheet" href="~/css/site.css">
-    <div class="col-md-6 offset-md-3">
-        <div class="row">
-            <div class="col-md-3">
-                <img src="~/imagenes/chef.jpg" alt="logo de mi app" width="80" height="80" />
-            </div>
-            <div class="col-md-9  text-center text-black" style="background-color: palegoldenrod">
-                <h2>Master Chef</h2>
-            </div>
+<div class="col-md-6 offset-md-3">
+    <div class="row">
+        <div class="col-md-3 imagen-column">
+            <img src="~/imagenes/me.jpg" alt="logo de mi app" width="80" height="80" />
+        </div>
+        <div class="col-md-9 texto-column"style="background-color: burlywood">
+            <h2>Master Chef</h2>
         </div>
     </div>
 </div>
+
+
 
 
 @*Inicio del formulario*@
@@ -35,7 +37,7 @@
  
     .progress-bar-fill {
         height: 100%;
-        background-color: palegoldenrod;
+        background-color:burlywood;
         width: 33.33%; /* Inicialmente llena un tercio */
         float: left;
     }
@@ -46,13 +48,6 @@
         margin-right: 10px;
     }
 
-    body {
-        background-image: url('comidix.jpg');
-        /* Ajusta la ruta a la ubicación y nombre de tu imagen */
-        background-size: cover; /* Para que la imagen se ajuste al tamaño de la ventana del navegador */
-        /* Otros estilos opcionales */
-        background-repeat: no-repeat; /* Para evitar que la imagen se repita */
-    }
 </style>
 
 @*Inicio del formulario*@
@@ -72,7 +67,7 @@
                 <div class="col-sm-4 mb-4">
                     <div style="margin: 10px 0;background-color: papayawhip; text-white">
                         <!-- Cambio de color a café -->
-                        <h1 style="margin: 10px 0;background-color: palegoldenrod">Mesa @(Model.IndexOf(mesa) + 1)</h1> <!-- Agregado margen -->
+                        <h1 style="margin: 10px 0;background-color: peachpuff">Mesa @(Model.IndexOf(mesa) + 1)</h1> <!-- Agregado margen -->
                         <div style="margin: 10px; background-color: papayawhip;">
                             <label>@mesa.nombre_plato</label>
                         </div>
@@ -88,7 +83,7 @@
                         </div>
 
                         <!-- Botón para cambiar el estado -->
-                        <button type="button" style="background-color: palegoldenrod" onclick="cambiarEstado(@Model.IndexOf(mesa))">Cambiar Estado</button>
+                        <button type="button" style="background-color: burlywood" onclick="cambiarEstado(@Model.IndexOf(mesa))">Cambiar Estado</button>
                     </div>
                 </div>
             }

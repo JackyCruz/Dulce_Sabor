@@ -14,5 +14,39 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url('frutas.jpg');
+    /* Ajusta la ruta a la ubicación y nombre de tu imagen */
+    background-size: cover; /* Para que la imagen se ajuste al tamaño de la ventana del navegador */
+    /* Otros estilos opcionales */
+    background-repeat: no-repeat; /* Para evitar que la imagen se repita */
 }
+
+/* Estilos para la columna de la imagen */
+.imagen-column {
+    width: calc(25% - 10px); /* Ajustar según sea necesario */
+}
+
+    .imagen-column img {
+        width: 100%;
+        height: auto;
+    }
+
+/* Estilos para la columna del texto */
+.texto-column {
+    width: calc(75% - 10px); /* Ajustar según sea necesario */
+    background-color: palegoldenrod;
+    text-align: center;
+    color: black;
+    margin-top: 10px; /* Ajustar según sea necesario */
+    margin-bottom: 10px; /* Ajustar según sea necesario */
+    padding-left: 5px; /* Ajustar según sea necesario */
+    padding-right: 5px; /* Ajustar según sea necesario */
+}
+
+    .texto-column h2 {
+        margin-top: 20px; /* Ajustar según sea necesario */
+        margin-bottom: 20px; /* Ajustar según sea necesario */
+    }
+
+
