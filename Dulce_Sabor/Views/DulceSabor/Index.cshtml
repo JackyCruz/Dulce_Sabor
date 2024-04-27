@@ -17,9 +17,6 @@
     </div>
 </div>
 
-
-
-
 @*Inicio del formulario*@
 @*Estilo para la pagina*@
 <style>
@@ -70,6 +67,7 @@
                         <h1 style="margin: 10px 0;background-color: peachpuff">Mesa @(Model.IndexOf(mesa) + 1)</h1> <!-- Agregado margen -->
                         <div style="margin: 10px; background-color: papayawhip;">
                             <label>@mesa.nombre_plato</label>
+                            <button type="button" style="background-color:burlywood" onclick="mostrarComentario('@Model.IndexOf(mesa)')">Comentario</button>
                         </div>
 
                         <!-- Barra de progreso y estado -->
@@ -90,6 +88,14 @@
         </div>
     }
 }
+
+<!-- Ventana emergente para mostrar el comentario -->
+<div id="modalComentario" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <p id="comentarioDetalle"></p>
+    </div>
+</div>
 
 @section Scripts {
     <script>
@@ -118,10 +124,28 @@
                 boton.disabled = false;
             }
         }
+
+        // Función para mostrar el comentario en la ventana emergente
+        function mostrarComentario(index) {
+            var modal = document.getElementById("modalComentario");
+            var comentarioDetalle = document.getElementById("comentarioDetalle");
+
+            // Obtener el comentario correspondiente al índice
+            // Se podría obtener desde el backend si se prefiere
+            var comentario = "Comentario de la mesa " + (index + 1) + ": Lorem ipsum dolor sit amet.";
+
+            // Mostrar el comentario en la ventana emergente
+            comentarioDetalle.innerText = comentario;
+            modal.style.display = "block";
+        }
+
+        // Función para cerrar la ventana emergente
+        function cerrarModal() {
+            var modal = document.getElementById("modalComentario");
+            modal.style.display = "none";
+        }
     </script>
 }
-
-
 
 
 
